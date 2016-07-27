@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        
+<hibernate-mapping package="bookshop.model">    
+    
+    <class name="Booklist" table="booklist"> 
+    <id name="id" column="bookid"> 
+        <generator class="native"/> 
+    </id> 
+    <property name="bookname"/> 
+    <property name="press"/> 
+    <property name="author"/> 
+    <property name="image" column="img"/> 
+    <property name="price"/> 
+    <property name="category"/> 
+    </class>
+    
+</hibernate-mapping>
+

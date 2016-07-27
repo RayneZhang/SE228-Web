@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/struts2-json-plugin-2.3.8.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/RayneBookstore/json-lib-2.4-jdk15.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-beanutils-1.9.2.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-collections-3.2.2.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/ezmorph-1.0.6.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-fileupload-1.3.2-bin/lib/commons-fileupload-1.3.2.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-io-2.5/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="F:/大二下/web开发技术/第三次迭代/commons-io-2.5/commons-io-2.5-javadoc.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

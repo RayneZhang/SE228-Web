@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ray's Bookstore - jQuery EasyUI Demo</title>
+    <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="demo/demo.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.easyui.min.js"></script>
+</head>
+<body>
+<h1> Rayne's Bookstore 管理平台</h1>
+<div class="easyui-layout" style="width:100%;height:1200px;">
+    <div region="west" split="true" title="Navigator" style="width:150px;">
+        <p style="padding:5px;margin:0;">信息面板:</p>
+        <ul>
+            <li><a href="javascript:void(0)" onclick="showcontent('系统通知')">系统通知</a></li>
+            <li><a href="javascript:void(0)" onclick="showcontent('用户信息')">用户信息</a></li>
+            <li><a href="logout.php" onclick="showcontent('注销登录')">注销登录</a></li>
+            <li><a href="javascript:void(0)" onclick="showcontent('敬请期待')">敬请期待</a></li>
+        </ul>
+    </div>
+    <div region="center" class="easyui-tabs" style="width:100%;height:1000px;">
+        <div title="管理用户" style="padding:10px;">
+            <table id="dg" title="My Users" class="easyui-datagrid" style="width:800px;height:500px"
+                   url="get_user.php"
+                   toolbar="#toolbar"
+                   rownumbers="true" fitColumns="true" singleSelect="true">
+                <thead>
+                <tr>
+                    <th field="id" width="300px">User ID</th>
+                    <th field="username" width="300px">User Name</th>
+                    <th field="userpasswd" width="300px">User Passwd</th>
+                    <th field="userphone" width="300px">User phone</th>
+                    <th field="email" width="300px">Email</th>
+                    <th field="userflag" width="300px">User Flag</th>
+                </tr>
+                </thead>
+            </table>
+            <div id="toolbar">
+                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">添加用户</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">编辑用户</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">删除用户</a>
+            </div>
+            <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+                 closed="true" buttons="#dlg-buttons">
+                <div class="ftitle">User Information</div>
+                <form id="fm" method="post" novalidate>
+                    <div class="fitem">
+                        <label>User Name: </label>
+                        <input name="username" class="easyui-textbox" required="true">
+                    </div>
+                    <div class="fitem">
+                        <label>User Passwd:</label>
+                        <input name="userpasswd" class="easyui-textbox" required="true">
+                    </div>
+                    <div class="fitem">
+                        <label>User Phone:</label>
+                        <input name="userphone" class="easyui-textbox">
+                    </div>
+                    <div class="fitem">
+                        <label>Email:</label>
+                        <input name="email" class="easyui-textbox" validType="email">
+                    </div>
+                    <div class="fitem">
+                        <label>User Flag:</label>
+                        <input name="userflag" class="easyui-textbox" data-options="prompt:'请输入admin/user'" required="true">
+                    </div>
+                </form>
+            </div>
+            <div id="dlg-buttons">
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
+            </div>
+            <script type="text/javascript">
+                var url;
+                function newUser(){
+                    $('#dlg').dialog('open').dialog('center').dialog('setTitle','New User');
+                    $('#fm').form('clear');
+                    url = 'save_user.php';
+                }
+                function editUser(){
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row){
+                        $('#dlg').dialog('open').dialog('center').dialog('setTitle','Edit User');
+                        $('#fm').form('load',row);
+                        url = 'update_user.php?id='+row.id;
+                        //url = 'update_user.php';
+                    }
+                }
+                function saveUser(){
+                    $('#fm').form('submit',{
+                        url: url,
+                        onSubmit: function(){
+                            return $(this).form('validate');
+                        },
+                        success: function(result){
+                            var result = eval('('+result+')');
+                            if (result.errorMsg){
+                                $.messager.show({
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            } else {
+                                $('#dlg').dialog('close');        // close the dialog
+                                $('#dg').datagrid('reload');    // reload the user data
+                            }
+                        }
+                    });
+                }
+                function destroyUser(){
+                    var row = $('#dg').datagrid('getSelected');
+                    if (row){
+                        $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
+                            if (r){
+                                $.post('destroy_user.php',{id:row.id},function(result){
+                                    //if (result.success){
+                                    $('#dg').datagrid('reload');    // reload the user data
+                                    /*} else {
+                                     $.messager.show({    // show error message
+                                     title: 'Error',
+                                     msg: result.errorMsg
+                                     });
+                                     }*/
+                                },'json');
+                            }
+                        });
+                    }
+                }
+            </script>
+        </div>
+        <div title="管理书库" style="padding:10px;">
+            <table id="dg1" title="My Booklists" class="easyui-datagrid" style="width:800px;height:500px"
+                   url="get_booklist.php"
+                   toolbar="#toolbar1"
+                   rownumbers="true" fitColumns="true" singleSelect="true">
+                <thead>
+                <tr>
+                    <th field="bookid" width="300px">Book ID</th>
+                    <th field="bookname" width="300px">Book Name</th>
+                    <th field="author" width="300px">Author</th>
+                    <th field="press" width="300px">Press</th>
+                    <th field="price" width="300px">Price</th>
+                    <th field="img" width="300px">Image URL</th>
+                </tr>
+                </thead>
+            </table>
+            <div id="toolbar1">
+                <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newBook()">添加图书</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editBook()">编辑图书信息</a>
+                <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyBook()">删除图书</a>
+            </div>
+            <div id="dlg1" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+                 closed="true" buttons="#dlg-buttons1">
+                <div class="ftitle">Book Information</div>
+                <form id="fm1" method="post" novalidate>
+                    <div class="fitem">
+                        <label>Book Name: </label>
+                        <input name="bookname" class="easyui-textbox" required="true">
+                    </div>
+                    <div class="fitem">
+                        <label>Author:</label>
+                        <input name="author" class="easyui-textbox" required="true">
+                    </div>
+                    <div class="fitem">
+                        <label>Press:</label>
+                        <input name="press" class="easyui-textbox">
+                    </div>
+                    <div class="fitem">
+                        <label>Price:</label>
+                        <input name="price" class="easyui-textbox" required="true">
+                    </div>
+                    <div class="fitem">
+                        <label>Image URL:</label>
+                        <input name="img" class="easyui-textbox">
+                    </div>
+                </form>
+            </div>
+            <div id="dlg-buttons1">
+                <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveBook()" style="width:90px">保存</a>
+                <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg1').dialog('close')" style="width:90px">Cancel</a>
+            </div>
+            <script type="text/javascript">
+                var url;
+                function newBook(){
+                    $('#dlg1').dialog('open').dialog('center').dialog('setTitle','New Book');
+                    $('#fm1').form('clear');
+                    url = 'save_book.php';
+                }
+                function editBook(){
+                    var row = $('#dg1').datagrid('getSelected');
+                    if (row){
+                        $('#dlg1').dialog('open').dialog('center').dialog('setTitle','Edit Book');
+                        $('#fm1').form('load',row);
+                        url = 'update_book.php?bookid='+row.bookid;
+                        //url = 'update_user.php';
+                    }
+                }
+                function saveBook(){
+                    $('#fm1').form('submit',{
+                        url: url,
+                        onSubmit: function(){
+                            return $(this).form('validate');
+                        },
+                        success: function(result){
+                            var result = eval('('+result+')');
+                            if (result.errorMsg){
+                                $.messager.show({
+                                    title: 'Error',
+                                    msg: result.errorMsg
+                                });
+                            } else {
+                                $('#dlg1').dialog('close');        // close the dialog
+                                $('#dg1').datagrid('reload');    // reload the user data
+                            }
+                        }
+                    });
+                }
+                function destroyBook(){
+                    var row = $('#dg1').datagrid('getSelected');
+                    if (row){
+                        $.messager.confirm('Confirm','你确定要删除这本书吗?',function(r){
+                            if (r){
+                                $.post('destroy_book.php',{bookid:row.bookid},function(result){
+                                    //if (result.success){
+                                    $('#dg1').datagrid('reload');    // reload the user data
+                                    /*} else {
+                                     $.messager.show({    // show error message
+                                     title: 'Error',
+                                     msg: result.errorMsg
+                                     });
+                                     }*/
+                                },'json');
+                            }
+                        });
+                    }
+                }
+            </script>
+        </div>
+    </div>
+</div>
+</body>
+</html>

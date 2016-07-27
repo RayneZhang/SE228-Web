@@ -1,0 +1,43 @@
+说明文档：
+该工程采用jsp+Servlet的方法，完成了迭代二要求的所有功能，其中还采用了OR映射的思想。
+
+DBMS：数据库的构建请看sql文件；共四张表，user,booklist,cart,orders.
+      可直接导入mysql
+
+其中：Sample.Entity包定义了实体
+      Sample.Servlet包定义了服务
+
+文件描述：
+	index.jsp   网站主页
+	login.jsp   登录界面
+	register.jsp注册界面
+	manage.jsp  管理员后台管理页面
+
+	Sample.Entity中定义了所有的实体类（反映在数据库中）
+	Sample.Servlet中定义了所有的Servlet服务
+
+ 	AddProduct.java		购物车增加或减少时的逻辑服务
+	CheckLoginServlet.java  登录验证，并执行必要的操作
+	LogoutServlet.java	注销登陆
+	RegisterServlet.java	注册之后的界面
+	DestroyBook.java	管理员删除书本
+	DestroyUser.java	管理员删除用户
+	GetBooklist.java	从数据库中获取所有的书本，返回List
+	GetBooklistData.java	从数据库中获取所有的书本，编码成json，给前端展示
+	GetCart.java		进入购物车的页面
+	GetCartData.java	从数据库中获取购物车的商品，编码成json，给前端展示
+	GetOrdersData.java	从数据库中获取所有的订单，编码成json，给前端展示
+	GetUserData.java	从数据库中获取所有的用户，编码成json,给前端展示
+	NewOrderServlet.java	用户支付成功之后的页面
+	OrderServlet.java	查看订单的页面
+	Savebook.java		将管理员新建的书本存入数据库
+	SaveUserServlet.java	将管理员新建的用户存入数据库	
+
+
+需要特别提醒的地方（也是设计中用户体验性比较差的地方）：
+	全程可以以用户名abc,密码123来进行体验。
+	购物车中商品的增加是通过拖动商品到右边一栏中来增加的(draggable,droppable)
+	购物车中商品的减少是通过单击表格中商品那一栏来减少的
+	web.xml文件好像在迁移过程中会编译报错，我也不知道为什么，但愿助教老师能够顺利跑出来。
+
+由于时间原因，许多设计的地方还不完善，请助教老师见谅！基本要求的功能我想都能够实现了。

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="json" extends="json-default">
+		<action name="getcartdata" class="bookshop.action.GetCartData" method="execute">
+			<result type="json">
+				<param name="root">datas</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="getorders" class="bookshop.action.MyOrders" method="execute">
+			<result type="json">
+				<param name="root">result</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="getallorders" class="bookshop.action.GetAllOrders" method="execute">
+			<result type="json">
+				<param name="root">result</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="getordersforcategory" class="bookshop.action.GetOrdersForCategory" method="execute">
+			<result type="json">
+				<param name="root">result</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="GetBooklistData" class="bookshop.action.GetBooklistData" method="execute">
+			<result type="json">
+				<param name="root">result</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="GetUserData" class="bookshop.action.GetUserData" method="execute">
+			<result type="json">
+				<param name="root">datas</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="GetOrdersData" class="bookshop.action.GetOrdersData" method="execute">
+			<result type="json">
+				<param name="root">result</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+		<action name="GetBooklist" class="bookshop.action.GetBooklist" method="execute">
+			<result type="json">
+				<param name="root">datas</param>
+				<!-- 指定是否序列化空的属性 -->
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		
+	</package>
+
+	<package name="basicstruts2" extends="struts-default">
+		<action name="index">
+			<result>/index.jsp</result>
+		</action>
+		
+		<action name="fileUpload" class="bookshop.action.UploadAction"
+			method="execute">
+			<result name="success">/Information.jsp</result>
+		</action>
+		
+		<action name="Information" class="bookshop.action.MyInformation"
+			method="execute">
+			<result name="error">/NotLogin.jsp</result>
+			<result name="success">/Information.jsp</result>
+		</action>
+
+		<action name="gotocart" class="bookshop.action.GetCart"
+			method="execute">
+			<result name="error">/NotLogin.jsp</result>
+			<result name="success">/ShowCart.jsp</result>
+		</action>
+		
+		<action name="gotopay" class="bookshop.action.PayAction"
+			method="execute">
+			<result name="error">/NotLogin.jsp</result>
+			<result name="success">/PaySuccess.jsp</result>
+		</action>
+		
+		<action name="logout" class="bookshop.action.LogoutAction"
+			method="execute">
+			<result name="error">/NotLogin.jsp</result>
+			<result name="success">/index.jsp</result>
+		</action>
+		
+		<action name="login" class="bookshop.action.LoginAction"
+			method="execute">
+			<result name="none">/manage.jsp</result>
+			<result name="login">/index.jsp</result>
+			<result name="error">/loginerror.jsp</result>
+			<result name="input">/loginerror.jsp</result>
+		</action>
+
+		<action name="register" class="bookshop.action.RegisterAction"
+			method="execute">
+			<result name="success">/login.jsp</result>
+			<result name="error">/register.jsp</result>
+		</action>
+		
+		<action name="AddProduct" class="bookshop.action.AddProductAction"
+			method="execute">
+			<result name="success"></result>
+			<result name="error"></result>
+		</action>
+		
+		<action name="saveuser" class="bookshop.action.SaveUserAction"
+			method="execute">
+			<result name="success"></result>
+			<result name="error"></result>
+		</action>
+		
+		<action name="savebook" class="bookshop.action.SaveBookAction"
+			method="execute">
+			<result name="success"></result>
+			<result name="error"></result>
+		</action>
+		
+		<action name="destroyuser" class="bookshop.action.DestroyUserAction"
+			method="execute">
+			<result name="success"></result>
+			<result name="error"></result>
+		</action>
+		
+		<action name="destroybook" class="bookshop.action.DestroyBookAction"
+			method="execute">
+			<result name="success"></result>
+			<result name="error"></result>
+		</action>
+		
+		<action name="usersaveuser" class="bookshop.action.UserSaveUser"
+			method="execute">
+			<result name="success"></result>
+			<result name="error"></result>
+		</action>
+
+	</package>
+
+</struts>
